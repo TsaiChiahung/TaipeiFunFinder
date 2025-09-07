@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "當代藝術聯展：城市光影",
+    "category": "展覽",
+    "location": "信義區",
+    "address": "台北市信義區市府路45號",
+    "date": "2025-09-13",
+    "isFree": true,
+    "imageUrl": "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDN8fGV2ZW50fGVufDB8fHx8MTY3OTg1OTI0NA&ixlib=rb-4.0.3&q=80&w=400"
+  },
+  {
+    "id": 2,
+    "title": "週末手作市集",
+    "category": "市集",
+    "location": "中山區",
+    "address": "台北市中山區南京西路16號",
+    "date": "2025-09-14",
+    "isFree": true,
+    "imageUrl": "https://images.unsplash.com/photo-1511578194003-06242ea1f339?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDEwfHxtYXJrZXR8ZW58MHx8fHwxNjc5ODU5Mjg2&ixlib=rb-4.0.3&q=80&w=400"
+  },
+  {
+    "id": 3,
+    "title": "獨立樂團演唱會",
+    "category": "音樂",
+    "location": "大安區",
+    "address": "台北市大安區羅斯福路四段1號",
+    "date": "2025-09-13",
+    "isFree": false,
+    "imageUrl": "https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDF8fGNvbmNlcnR8ZW58MHx8fHwxNjc5ODU5MzE5&ixlib=rb-4.0.3&q=80&w=400"
+  }
+]
