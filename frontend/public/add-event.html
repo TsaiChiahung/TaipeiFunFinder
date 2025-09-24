@@ -2,97 +2,94 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>新增活動</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>新增活動 - Taipei Fun Finder</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <style>
-        form { max-width: 600px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 8px; }
-        form div { margin-bottom: 1rem; }
-        form label { display: block; margin-bottom: 0.5rem; }
-        form input { width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; }
-        form button { padding: 0.75rem 1.5rem; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        body { background-color: #f8f9fa; }
+        .form-container { max-width: 700px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
-    <header>
-        <h1>新增活動</h1>
-        <a href="index.html" style="color: white; margin-top: 1rem; display: inline-block;">返回首頁</a>
-    </header>
-    <main>
-        <form id="add-event-form">
-    <div>
-        <label for="title">活動標題</label>
-        <input type="text" id="title" name="title" required>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="/">Taipei Fun Finder</a>
+            <a class="nav-link text-white" href="/">返回首頁</a>
+        </div>
+    </nav>
 
-    <div>
-        <label for="category">活動類別</label>
-        <select id="category" name="category" required>
-    <option value="" disabled selected>請選擇類別</option>
-    <option value="市集">市集</option>
-    <option value="親子">親子</option>
-    <option value="運動">運動</option>
-    <option value="音樂">音樂</option>
-    <option value="寵物">寵物</option>
-    <option value="藝文">藝文</option>
-    <option value="社區">社區</option>
-    <option value="其他">其他</option>
-</select>
-    </div>
-    <div>
-        <label for="location">地點 (行政區)</label>
-        <select id="location" name="location" required>
-            <option value="文山區">文山區</option>
-            <option value="信義區">信義區</option>
-            <option value="大安區">大安區</option>
-            <option value="中山區">中山區</option>
-            <option value="中正區">中正區</option>
-            <option value="松山區">松山區</option>
-            <option value="萬華區">萬華區</option>
-            <option value="大同區">大同區</option>
-            <option value="北投區">北投區</option>
-            <option value="士林區">士林區</option>
-            <option value="內湖區">內湖區</option>
-            <option value="南港區">南港區</option>
-        </select>
-    </div>
-    <div>
-        <label for="address">詳細地址</label>
-        <input type="text" id="address" name="address" required>
-    </div>
-    <div>
-        <div>
-    <label for="startDate">開始日期</label>
-    <input type="date" id="startDate" name="startDate" required>
-</div>
-<div>
-    <label for="endDate">結束日期 (單日活動請留空或填同一天)</label>
-    <input type="date" id="endDate" name="endDate">
-</div>
-    </div>
-    <div style="display: flex; align-items: center;">
-        <input type="checkbox" id="isFree" name="isFree" style="width: auto; margin-right: 0.5rem;">
-        <label for="isFree">這是一個免費活動</label>
-    </div>
-    <div>
-        <label for="organizer">主辦單位</label>
-        <input type="text" id="organizer" name="organizer" required>
-    </div>
-    <div>
-        <label for="imageUrl">圖片網址(照片請使用Imgur轉換網址)</label>
-    <input type="url" id="imageUrl" name="imageUrl" required>
-    <img id="image-preview" src="" alt="圖片預覽" style="max-width: 100%; max-height: 200px; margin-top: 1rem; display: none;">
-    </div>
-    <div>
-  <label for="description">活動簡介</label>
-  <textarea id="description" name="description" rows="4" style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;"></textarea>
-</div>
-    <div>
-        <label for="linkUrl">活動連結</label>
-        <input type="url" id="linkUrl" name="linkUrl" required>
-    </div>
-    <button type="submit">新增活動</button>
-</form>
+    <main class="container">
+        <div class="form-container">
+            <h1 class="mb-4">新增你的活動</h1>
+            <form id="add-event-form">
+                <div class="mb-3">
+                    <label for="title" class="form-label">活動標題</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-label">活動類別</label>
+                    <select class="form-select" id="category" name="category" required>
+                        <option value="" disabled selected>請選擇類別</option>
+                        <option value="市集">市集</option>
+                        <option value="親子">親子</option>
+                        <option value="運動">運動</option>
+                        <option value="音樂">音樂</option>
+                        <option value="寵物">寵物</option>
+                        <option value="藝文">藝文</option>
+                        <option value="社區">社區</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="location" class="form-label">地點 (行政區)</label>
+                        <select class="form-select" id="location" name="location" required>
+                            <option value="文山區">文山區</option>
+                            <option value="信義區">信義區</option>
+                            <option value="內湖區">內湖區</option>
+                            <option value="南港區">南港區</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="address" class="form-label">詳細地址</label>
+                        <input type="text" class="form-control" id="address" name="address" required>
+                    </div>
+                </div>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="startDate" class="form-label">開始日期</label>
+                        <input type="date" class="form-control" id="startDate" name="startDate" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="endDate" class="form-label">結束日期 (單日活動請留空)</label>
+                        <input type="date" class="form-control" id="endDate" name="endDate">
+                    </div>
+                </div>
+                 <div class="mb-3">
+                    <label for="organizer" class="form-label">主辦單位</label>
+                    <input type="text" class="form-control" id="organizer" name="organizer" required>
+                </div>
+                <div class="mb-3">
+                    <label for="imageUrl" class="form-label">圖片網址 (建議使用 Imgur)</label>
+                    <input type="url" class="form-control" id="imageUrl" name="imageUrl" required>
+                    <img id="image-preview" src="" alt="圖片預覽" class="img-fluid rounded mt-2" style="max-height: 200px; display: none;">
+                </div>
+                 <div class="mb-3">
+                    <label for="description" class="form-label">活動簡介</label>
+                    <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="linkUrl" class="form-label">活動連結</label>
+                    <input type="url" class="form-control" id="linkUrl" name="linkUrl" required>
+                </div>
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" id="isFree" name="isFree">
+                    <label class="form-check-label" for="isFree">這是一個免費活動</label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">新增活動</button>
+            </form>
+        </div>
     </main>
-    <script src="js/add-event.js"></script>
+
+    <script src="/js/add-event.js"></script>
 </body>
 </html>
