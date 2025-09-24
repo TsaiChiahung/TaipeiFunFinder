@@ -1,0 +1,69 @@
+<div class="col">
+  <div class="card h-100 shadow-sm">
+    <% 
+      // 圖片預設值邏輯
+      const imageUrl = event.imageUrl 
+    ? event.imageUrl 
+    : 'https://via.placeholder.com/400x300.png?text=Taipei+Fun+Finder'; 
+    %>
+    <a href="<%= event.linkUrl || '#' %>" target="_blank" rel="noopener noreferrer">
+      <img src="<%= imageUrl %>" class="card-img-top" alt="<%= event.title %>" style="height: 200px; object-fit: cover;">
+    </a>
+    
+    <div class="card-body text-start">
+      <h5 class="card-title"><%= event.title %></h5>
+      
+      <div class="card-text mb-3">
+        <span class="badge bg-primary me-2"><%= event.category %></span>
+        <% if (event.isFree) { %>
+          <span class="badge bg-success">免費</span>
+        <% } else { %>
+          <span class="badge bg-warning text-dark">付費</span>
+        <% } %>
+      </div>
+
+      <%
+        // 日期格式化邏輯
+        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedStartDate = new Date(event.startDate).toLocaleDateString('zh-TW', dateOptions);
+        const formattedEndDate = new Date(event.endDate).toLocaleDateString('zh-TW', dateOptions);
+      %>
+      <p class="card-text">
+        <strong>🗓 日期：</strong>
+        <% if (formattedStartDate === formattedEndDate) { %>
+          <%= formattedStartDate %>
+        <% } else { %>
+          <%= formattedStartDate %> ~ <%= formattedEndDate %>
+        <% } %>
+        <br>
+        <strong>📍 地點：</strong><%= event.location || "未提供" %> (<%= event.address || "未提供" %>)
+        <br>
+        <strong>🏢 主辦：</strong><%= event.organizer || "未提供" %>
+      </p>
+
+      <p class="card-text text-muted mt-auto">
+        <%= event.description ? event.description.substring(0, 80) + "..." : "無活動簡介" %>
+      </p>
+    </div>
+
+    <div class="card-footer bg-light">
+      <button class="btn btn-outline-danger btn-sm like-btn" data-id="<%= event._id %>">
+        ❤️ 按讚 (<span class="like-count"><%= event.likes || 0 %></span>)
+      </button>
+      <button class="btn btn-outline-secondary btn-sm comment-toggle" data-id="<%= event._id %>">
+        💬 留言
+      </button>
+      <div class="comment-box mt-2 d-none" id="comment-box-<%= event._id %>">
+        <form class="comment-form" data-id="<%= event._id %>">
+          <input type="text" name="text" class="form-control form-control-sm mb-2" placeholder="輸入留言...">
+          <button type="submit" class="btn btn-primary btn-sm">送出</button>
+        </form>
+        <ul class="list-group list-group-flush mt-2 comment-list">
+          <% (event.comments || []).forEach(c => { %>
+            <li class="list-group-item py-1 px-0 border-0"><%= c.text %></li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

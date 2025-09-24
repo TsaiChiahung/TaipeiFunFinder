@@ -1,0 +1,32 @@
+version: "3.9"  # 支援 Docker Compose v2
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: taipeifun_mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: tsaichicloud
+      MONGO_INITDB_ROOT_PASSWORD: UxW1302
+      MONGO_INITDB_DATABASE: TaipeiFunFinderDB
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: taipeifun_mongo_express
+    restart: unless-stopped
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: tsaichicloud
+      ME_CONFIG_MONGODB_ADMINPASSWORD: UxW1302
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:

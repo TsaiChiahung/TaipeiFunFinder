@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>新增活動</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        form { max-width: 600px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 8px; }
+        form div { margin-bottom: 1rem; }
+        form label { display: block; margin-bottom: 0.5rem; }
+        form input { width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; }
+        form button { padding: 0.75rem 1.5rem; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>新增活動</h1>
+        <a href="index.html" style="color: white; margin-top: 1rem; display: inline-block;">返回首頁</a>
+    </header>
+    <main>
+        <form id="add-event-form">
+    <div>
+        <label for="title">活動標題</label>
+        <input type="text" id="title" name="title" required>
+    </div>
+
+    <div>
+        <label for="category">活動類別</label>
+        <select id="category" name="category" required>
+    <option value="" disabled selected>請選擇類別</option>
+    <option value="市集">市集</option>
+    <option value="親子">親子</option>
+    <option value="運動">運動</option>
+    <option value="音樂">音樂</option>
+    <option value="寵物">寵物</option>
+    <option value="藝文">藝文</option>
+    <option value="社區">社區</option>
+    <option value="其他">其他</option>
+</select>
+    </div>
+    <div>
+        <label for="location">地點 (行政區)</label>
+        <select id="location" name="location" required>
+            <option value="文山區">文山區</option>
+            <option value="信義區">信義區</option>
+            <option value="大安區">大安區</option>
+            <option value="中山區">中山區</option>
+            <option value="中正區">中正區</option>
+            <option value="松山區">松山區</option>
+            <option value="萬華區">萬華區</option>
+            <option value="大同區">大同區</option>
+            <option value="北投區">北投區</option>
+            <option value="士林區">士林區</option>
+            <option value="內湖區">內湖區</option>
+            <option value="南港區">南港區</option>
+        </select>
+    </div>
+    <div>
+        <label for="address">詳細地址</label>
+        <input type="text" id="address" name="address" required>
+    </div>
+    <div>
+        <div>
+    <label for="startDate">開始日期</label>
+    <input type="date" id="startDate" name="startDate" required>
+</div>
+<div>
+    <label for="endDate">結束日期 (單日活動請留空或填同一天)</label>
+    <input type="date" id="endDate" name="endDate">
+</div>
+    </div>
+    <div style="display: flex; align-items: center;">
+        <input type="checkbox" id="isFree" name="isFree" style="width: auto; margin-right: 0.5rem;">
+        <label for="isFree">這是一個免費活動</label>
+    </div>
+    <div>
+        <label for="organizer">主辦單位</label>
+        <input type="text" id="organizer" name="organizer" required>
+    </div>
+    <div>
+        <label for="imageUrl">圖片網址(照片請使用Imgur轉換網址)</label>
+    <input type="url" id="imageUrl" name="imageUrl" required>
+    <img id="image-preview" src="" alt="圖片預覽" style="max-width: 100%; max-height: 200px; margin-top: 1rem; display: none;">
+    </div>
+    <div>
+  <label for="description">活動簡介</label>
+  <textarea id="description" name="description" rows="4" style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+</div>
+    <div>
+        <label for="linkUrl">活動連結</label>
+        <input type="url" id="linkUrl" name="linkUrl" required>
+    </div>
+    <button type="submit">新增活動</button>
+</form>
+    </main>
+    <script src="js/add-event.js"></script>
+</body>
+</html>

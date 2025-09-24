@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>台北悠化 | TaipeiFunFinder</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+
+<style>
+  /* Modal 基本樣式 */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-content {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+  }
+  .modal-close-btn {
+    float: right;
+    border: none;
+    background: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    color: #6c757d;
+  }
+</style>
+
+<body class="bg-light">
+  <!-- 導覽列 -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">台北最新活動</a>
+    </div>
+  </nav>
+
+  <!-- 搜尋欄位 -->
+  <div class="container my-4">
+    <form class="row g-2" method="GET" action="/search">
+      <div class="col-md-3">
+        <input type="text" name="category" class="form-control" placeholder="輸入類別">
+      </div>
+      <div class="col-md-3">
+        <input type="text" name="location" class="form-control" placeholder="輸入地點">
+      </div>
+      <div class="col-md-3">
+        <input type="date" name="date" class="form-control">
+      </div>
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-primary w-100">搜尋</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 活動分區 -->
+  <div class="container my-5">
+    <h2 class="mb-4">📅 今天的活動</h2>
+    <% if (todayEvents.length === 0) { %>
+      <p class="text-muted">今天沒有活動。</p>
+    <% } else { %>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% todayEvents.forEach(event => { %>
+          <%- include("partials/eventCard", { event: event }) %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+
+  <div class="container my-5">
+    <h2 class="mb-4">📅 明天的活動</h2>
+    <% if (tomorrowEvents.length === 0) { %>
+      <p class="text-muted">明天沒有活動。</p>
+    <% } else { %>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% tomorrowEvents.forEach(event => { %>
+          <%- include("partials/eventCard", { event: event }) %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+
+  <div class="container my-5">
+    <h2 class="mb-4">📅 本週末的活動</h2>
+    <% if (weekendEvents.length === 0) { %>
+      <p class="text-muted">本週末沒有活動。</p>
+    <% } else { %>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% weekendEvents.forEach(event => { %>
+          <%- include("partials/eventCard", { event: event }) %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+
+  <div class="container my-5">
+    <h2 class="mb-4">📅 未來活動</h2>
+    <% if (futureEvents.length === 0) { %>
+      <p class="text-muted">目前沒有未來活動。</p>
+    <% } else { %>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% futureEvents.forEach(event => { %>
+          <%- include("partials/eventCard", { event: event }) %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+
+  <div class="container my-5">
+    <h2 class="mb-4">🔁 定期活動</h2>
+    <% if (recurringEvents.length === 0) { %>
+      <p class="text-muted">目前沒有定期活動。</p>
+    <% } else { %>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% recurringEvents.forEach(event => { %>
+          <%- include("partials/eventCard", { event: event }) %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- 留言 Modal -->
+  <div id="comment-modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close-btn">✖</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>本站由 <strong>台北悠化</strong> 維護</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 按讚
+    document.querySelectorAll(".like-btn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const id = btn.dataset.id;
+        const res = await fetch(`/events/${id}/like`, { method: "POST" });
+        const data = await res.json();
+        btn.querySelector(".like-count").textContent = data.likes;
+      });
+    });
+
+    // 展開留言
+    document.querySelectorAll(".comment-toggle").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const box = document.getElementById(`comment-box-${btn.dataset.id}`);
+        if (box) box.classList.toggle("d-none");
+      });
+    });
+
+    // 提交留言
+    document.querySelectorAll(".comment-form").forEach(form => {
+      form.addEventListener("submit", async e => {
+        e.preventDefault();
+        const id = form.dataset.id;
+        const text = form.querySelector("input[name='text']").value;
+        const res = await fetch(`/events/${id}/comment`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text })
+        });
+        const data = await res.json();
+        const list = form.parentElement.querySelector(".comment-list");
+        list.innerHTML = "";
+        data.comments.forEach(c => {
+          const li = document.createElement("li");
+          li.className = "list-group-item py-1";
+          li.textContent = c.text;
+          list.appendChild(li);
+        });
+        form.reset();
+      });
+    });
+  });
+  </script>
+</body>
+</html>

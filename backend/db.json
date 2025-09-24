@@ -1,32 +1,32 @@
+
 [
   {
     "id": 1,
-    "title": "當代藝術聯展：城市光影",
-    "category": "展覽",
-    "location": "信義區",
-    "address": "台北市信義區市府路45號",
-    "date": "2025-09-13",
-    "isFree": true,
-    "imageUrl": "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDN8fGV2ZW50fGVufDB8fHx8MTY3OTg1OTI0NA&ixlib=rb-4.0.3&q=80&w=400"
-  },
-  {
-    "id": 2,
-    "title": "週末手作市集",
-    "category": "市集",
+    "title": "168幸福市集",
+    "description": "這是一個在圓山花博舉辦的文創與美食市集，適合全家大小一起來逛逛。",
+    "isRecommended": true,
+    "category": "戶外",
     "location": "中山區",
-    "address": "台北市中山區南京西路16號",
-    "date": "2025-09-14",
+    "address": "圓山花博",
+    "startDate": "2025-10-03",
+    "endDate": "2025-10-06",
+    "organizer": "168幸福市集",
+    "linkUrl": "https://www.168market.tw",
     "isFree": true,
-    "imageUrl": "https://images.unsplash.com/photo-1511578194003-06242ea1f339?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDEwfHxtYXJrZXR8ZW58MHx8fHwxNjc5ODU5Mjg2&ixlib=rb-4.0.3&q=80&w=400"
+    "imageUrl": "https://images.unsplash.com/photo-1604200657090-ae45994b2451?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
-    "id": 3,
-    "title": "獨立樂團演唱會",
-    "category": "音樂",
-    "location": "大安區",
-    "address": "台北市大安區羅斯福路四段1號",
-    "date": "2025-09-13",
+    "title": "樂天桃猿 VS. 台鋼雄鷹",
+    "isRecommended": true,
+    "category": "運動",
+    "location": "信義區",
+    "address": "臺北大巨蛋",
+    "startDate": "2025-09-26",
+    "endDate": "2025-09-26",
     "isFree": false,
-    "imageUrl": "https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDF8fGNvbmNlcnR8ZW58MHx8fHwxNjc5ODU5MzE5&ixlib=rb-4.0.3&q=80&w=400"
+    "organizer": "中華職棒",
+    "imageUrl": "https://cdn.pixabay.com/photo/2019/07/24/08/05/baseball-4359434_1280.jpg",
+    "linkUrl": "https://www.farglorydome.com.tw/news-detail/p2025/",
+    "id": 8
   }
 ]

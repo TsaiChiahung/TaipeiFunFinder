@@ -1,0 +1,5 @@
+node_modules
+
+PORT=3000
+MONGODB_URI=mongodb+srv://<username>:<password>@taipeifunfinder.been3vd.mongodb.net/TaipeiFunFinderDB?retryWrites=true&w=majority&appName=TaipeiFunFinder
+

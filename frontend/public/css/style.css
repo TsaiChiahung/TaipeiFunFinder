@@ -1,0 +1,296 @@
+/* --- TaipeiFunFinder 最終整理版樣式 --- */
+
+/* 1. 基礎與通用樣式 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.loader {
+    text-align: center;
+    width: 100%;
+    font-size: 1.5rem;
+    color: #666;
+}
+
+/* 2. 篩選器與分類標題 */
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+}
+
+.filter-container input[type="text"] {
+    flex-grow: 1;
+    max-width: 400px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+.filter-container label {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.filter-container input[type="date"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    color: #333;
+}
+
+.category-section {
+    margin-bottom: 3rem;
+}
+
+.category-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+    color: #343a40;
+}
+
+/* 3. Grid 佈局 (行動裝置優先) */
+.events-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.recommended-grid,
+.other-grid {
+    grid-template-columns: 1fr; /* 預設皆為 1 欄 */
+}
+
+/* 中等螢幕斷點 */
+@media (min-width: 600px) {
+    .recommended-grid,
+    .other-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 寬螢幕斷點 */
+@media (min-width: 992px) {
+    .other-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* 4. 卡片樣式 */
+.event-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.event-card img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+}
+
+.event-card .card-content {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.event-card h2 {
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.recommended-grid .event-card h2 {
+    font-size: 1.4rem;
+}
+
+.event-card p {
+    margin: 0.2rem 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.event-card .tags-container {
+    margin-top: auto;
+    padding-top: 0.5rem;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.tag.free { background-color: #28a745; color: white; }
+.tag.paid { background-color: #dc3545; color: white; }
+
+
+/* 5. 頁腳樣式 */
+.site-footer {
+    background-color: #343a40;
+    color: #adb5bd;
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 4rem;
+}
+
+.site-footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+.site-footer .disclaimer {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.site-footer .copyright {
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+/* Card Footer and Like Button Styles */
+.card-footer {
+    padding: 0.5rem 1rem;
+    border-top: 1px solid #eee;
+    background-color: #fafafa;
+}
+
+.like-btn {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.like-btn:hover {
+    background-color: #ffe0e0;
+    border-color: #ffc0c0;
+}
+
+/* Comment Button Style */
+.comment-btn {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.comment-btn:hover {
+    background-color: #e0edff;
+    border-color: #c0d8ff;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}

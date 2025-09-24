@@ -1,0 +1,173 @@
+[{
+  "_id": {
+    "$oid": "68cd1f24ab2182ffba1cc238"
+  },
+  "title": "168幸福市集",
+  "category": "戶外",
+  "location": "中山區",
+  "address": "圓山花博",
+  "startDate": {
+    "$date": "2025-10-03T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-10-06T00:00:00.000Z"
+  },
+  "organizer": "168幸福市集",
+  "linkUrl": "https://www.168market.tw",
+  "isFree": true,
+  "imageUrl": "https://images.unsplash.com/photo-1604200657090-ae45994b2451?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "isRecommended": false,
+  "status": "approved",
+  "likes": 0,
+  "comments": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68cd1f24ab2182ffba1cc239"
+  },
+  "title": "樂天桃猿 VS. 台鋼雄鷹",
+  "category": "運動",
+  "location": "信義區",
+  "address": "臺北大巨蛋",
+  "startDate": {
+    "$date": "2025-09-26T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-09-26T00:00:00.000Z"
+  },
+  "organizer": "中華職棒",
+  "linkUrl": "https://www.farglorydome.com.tw/news-detail/p2025/",
+  "isFree": false,
+  "imageUrl": "https://cdn.pixabay.com/photo/2019/07/24/08/05/baseball-4359434_1280.jpg",
+  "isRecommended": false,
+  "status": "approved",
+  "likes": 0,
+  "comments": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68cd1fcc686507f9d875ef98"
+  },
+  "title": "2025臺北市馬場町馬術邀請賽暨馬術嘉年華",
+  "category": "運動",
+  "location": "萬華區",
+  "organizer": "台北市體育局",
+  "startDate": {
+    "$date": "2025-11-22T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-11-23T00:00:00.000Z"
+  },
+  "linkUrl": "https://together.taipei/HEOTPR/mobile/event_detail?CID=OST2509051946025",
+  "imageUrl": "https://cdn.pixabay.com/photo/2018/06/03/11/17/horse-3450225_1280.jpg",
+  "isFree": true,
+  "address": "馬場町紀念公園大草皮",
+  "description": "馬術邀請賽暨馬術嘉年華",
+  "likes": 0,
+  "status": "approved",
+  "comments": [],
+  "__v": 0,
+  "isRecommended": true
+},
+{
+  "_id": {
+    "$oid": "68cd2240686507f9d875ef9f"
+  },
+  "title": "圓山中秋市集",
+  "category": "市集",
+  "location": "中山區",
+  "organizer": "市政府",
+  "startDate": {
+    "$date": "2025-10-03T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-10-06T00:00:00.000Z"
+  },
+  "linkUrl": "https://reurl.cc/jr9azM",
+  "imageUrl": "https://cdn.pixabay.com/photo/2024/11/13/08/47/city-9193823_1280.jpg",
+  "isFree": true,
+  "address": "台北圓山花博入口廣場",
+  "description": "",
+  "likes": 0,
+  "status": "approved",
+  "comments": [],
+  "__v": 0,
+  "isRecommended": true
+},
+{
+  "_id": {
+    "$oid": "68cd25066780e4afadf88387"
+  },
+  "title": "華航馬拉松-星光夜跑",
+  "category": "運動",
+  "location": "中山區",
+  "organizer": "中華航空",
+  "startDate": {
+    "$date": "2025-10-11T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-10-11T00:00:00.000Z"
+  },
+  "linkUrl": "https://cimarathon.china-airlines.com/",
+  "imageUrl": "https://cdn.pixabay.com/photo/2016/01/04/10/38/running-1120606_1280.jpg",
+  "isFree": false,
+  "address": "大佳河濱公園圓頂天幕廣場",
+  "description": "2025 華航馬拉松以「派對狂歡」為核心主軸，結合航空品牌特色與永續理念，打造一場兼具跑步樂趣與派對氛圍的年度盛事，讓參賽者在星光下盡情享受跑步與狂歡的雙重體驗。",
+  "likes": 0,
+  "status": "approved",
+  "comments": [],
+  "__v": 0,
+  "isRecommended": true
+},
+{
+  "_id": {
+    "$oid": "68cd43d4e1bc67b6942fd834"
+  },
+  "title": "國際住棚節市集International Sukkot Festival",
+  "category": "市集",
+  "location": "松山區",
+  "organizer": "好日市集",
+  "startDate": {
+    "$date": "2025-10-10T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-10-12T00:00:00.000Z"
+  },
+  "linkUrl": "https://www.facebook.com/events/1263259361976096/?rdid=VwFpbLGmIpsIURKP&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1AnchbYYZT%2F#",
+  "imageUrl": "https://images.unsplash.com/photo-1571086180519-9c1fea323612?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3Vra290fGVufDB8fDB8fHww",
+  "isFree": true,
+  "isRecommended": false,
+  "address": "台灣台北市信義區光復南路133號[松山文創園區文創大街]",
+  "description": " 猶太人在住棚節期間搭建棚屋，是為了紀念古代以色列人在出埃及後於曠野中漂流的四十年期間所居住的臨時棚屋，並追念當時上帝對他們的供養與供應。 ",
+  "likes": 0,
+  "status": "approved",
+  "comments": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68cd4986e1bc67b6942fd849"
+  },
+  "title": "2025 Running 月老大稻埕聯誼闖關賽",
+  "category": "其他",
+  "location": "萬華區",
+  "organizer": "臺北市政府與臺北市國際青年商會",
+  "startDate": {
+    "$date": "2025-10-18T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-10-18T00:00:00.000Z"
+  },
+  "linkUrl": "https://www.facebook.com/jcitaipei/posts/2025running%E6%9C%88%E8%80%81-%E5%A4%A7%E7%A8%BB%E5%9F%95%E8%81%AF%E8%AA%BC%E9%97%96%E9%97%9C%E8%B3%BD-%E5%96%AE%E8%BA%AB%E7%9A%84%E4%BA%BA%E8%AB%8B%E8%A8%98%E4%BD%8F%E9%80%99%E5%80%8B%E6%97%A5%E5%AD%90-1018-%EF%B8%8F2025-running%E6%9C%88%E8%80%81%EF%B8%8F%EF%B8%8F%E5%A4%A7%E7%A8%BB%E5%9F%95%E8%81%AF%E8%AA%BC%E9%97%96%E9%97%9C%E8%B3%BD%EF%B8%8F%E6%9C%88%E8%80%81%E5%B9%B4%E5%BA%95%E8%A1%9D%E6%A5%AD%E7%B8%BE%E7%B4%85%E7%B7%9A%E5%A4%A7%E9%80%A3%E7%B7%9A%E6%82%A8%E7%9A%84/1149531897211896/",
+  "imageUrl": "https://cdn.pixabay.com/photo/2018/01/09/22/51/roses-3072698_1280.jpg",
+  "isFree": false,
+  "isRecommended": false,
+  "address": "臺北大稻埕延平河濱公園廣場",
+  "description": "在浪漫的大稻埕，打造屬於你的戀愛能量場。",
+  "likes": 0,
+  "status": "approved",
+  "comments": [],
+  "__v": 0
+}]
