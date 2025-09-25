@@ -35,8 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    alert('活動新增成功！');
-                    window.location.href = '/'; // 成功後跳轉回首頁
+                    alert('活動新增成功！表單已清空，可以繼續新增下一筆。');
+                        form.reset(); // 👈 清空表單所有欄位
+                         // 我們把 window.location.href = ... 這行刪掉，讓使用者留在原頁面
                 } else {
                     const errorData = await response.json();
                     alert(`新增失敗：${errorData.message || '未知錯誤'}`);
