@@ -65,30 +65,48 @@
 
 <script>
 document.body.addEventListener('click', async (e) => {
+  // 找到被點擊的目標按鈕
   const target = e.target;
   const id = target.dataset.id;
+
+  // 如果點擊的不是帶有 data-id 的按鈕，就直接忽略
   if (!id) return;
 
   let url = '';
-  let confirmation = false;
+  let method = 'POST'; // 我們所有的操作都是 POST
 
-  if (target.classList.contains('approve-btn')) url = `/api/events/${id}/approve`;
-  if (target.classList.contains('unpublish-btn')) url = `/api/events/${id}/unpublish`;
-  if (target.classList.contains('republish-btn')) url = `/api/events/${id}/republish`;
-  // 👇 加上新的判斷式
-  if (target.classList.contains('recommend-btn')) url = `/api/events/${id}/toggle-recommend`; 
-  
-  if (target.classList.contains('reject-btn')) {
-    confirmation = confirm('確定要永久刪除這個活動嗎？');
-    if (confirmation) url = `/api/events/${id}/reject`;
+  // 根據按鈕的 class 決定要呼叫哪個 API
+  if (target.classList.contains('approve-btn')) {
+    url = `/api/events/${id}/approve`;
+  } else if (target.classList.contains('unpublish-btn')) {
+    url = `/api/events/${id}/unpublish`;
+  } else if (target.classList.contains('republish-btn')) {
+    url = `/api/events/${id}/republish`;
+  } else if (target.classList.contains('recommend-btn')) {
+    url = `/api/events/${id}/toggle-recommend`;
+  } else if (target.classList.contains('reject-btn')) {
+    // 刪除按鈕需要額外確認
+    if (confirm('確定要永久刪除這個活動嗎？這個操作無法復原。')) {
+      url = `/api/events/${id}/reject`;
+    }
   }
-  
-  if (url && (confirmation || !target.classList.contains('reject-btn'))) {
-    const res = await fetch(url, { method: 'POST' });
-    if (res.ok) {
-      window.location.reload();
-    } else {
-      alert('操作失敗！');
+
+  // 如果 url 已經被設定（代表是一個有效的操作按鈕被點擊）
+  if (url) {
+    try {
+      const response = await fetch(url, { method: method });
+      
+      if (response.ok) {
+        // 操作成功，重新整理頁面以顯示最新狀態
+        window.location.reload();
+      } else {
+        // 操作失敗，顯示從後端傳來的錯誤訊息
+        const errorData = await response.json();
+        alert(`操作失敗： ${errorData.message || '伺服器發生未知錯誤'}`);
+      }
+    } catch (err) {
+      console.error('請求發送失敗:', err);
+      alert('無法連接到伺-服器，請檢查你的網路連線。');
     }
   }
 });
