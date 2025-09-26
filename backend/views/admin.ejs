@@ -64,53 +64,66 @@
   </div>
 
 <script>
-  alert('管理頁面的最新 JavaScript 已經載入！'); // 👈 請加上這一行
-document.body.addEventListener('click', async (e) => {
-  // 找到被點擊的目標按鈕
-  const target = e.target;
-  const id = target.dataset.id;
+  alert('管理頁面的最新 JavaScript (追蹤版) 已經載入！');
 
-  // 如果點擊的不是帶有 data-id 的按鈕，就直接忽略
-  if (!id) return;
+  document.body.addEventListener('click', async (e) => {
+    console.log('--- 點擊事件觸發 ---'); // 追蹤點 1
 
-  let url = '';
-  let method = 'POST'; // 我們所有的操作都是 POST
+    const target = e.target;
+    const id = target.dataset.id;
+    
+    console.log('被點擊的元素:', target); // 追蹤點 2
 
-  // 根據按鈕的 class 決定要呼叫哪個 API
-  if (target.classList.contains('approve-btn')) {
-    url = `/api/events/${id}/approve`;
-  } else if (target.classList.contains('unpublish-btn')) {
-    url = `/api/events/${id}/unpublish`;
-  } else if (target.classList.contains('republish-btn')) {
-    url = `/api/events/${id}/republish`;
-  } else if (target.classList.contains('recommend-btn')) {
-    url = `/api/events/${id}/toggle-recommend`;
-  } else if (target.classList.contains('reject-btn')) {
-    // 刪除按鈕需要額外確認
-    if (confirm('確定要永久刪除這個活動嗎？這個操作無法復原。')) {
-      url = `/api/events/${id}/reject`;
+    if (!id) {
+      console.log('點擊的元素沒有 data-id，忽略。'); // 追蹤點 3
+      return;
     }
-  }
 
-  // 如果 url 已經被設定（代表是一個有效的操作按鈕被點擊）
-  if (url) {
-    try {
-      const response = await fetch(url, { method: method });
-      
-      if (response.ok) {
-        // 操作成功，重新整理頁面以顯示最新狀態
-        window.location.reload();
-      } else {
-        // 操作失敗，顯示從後端傳來的錯誤訊息
-        const errorData = await response.json();
-        alert(`操作失敗： ${errorData.message || '伺服器發生未知錯誤'}`);
+    console.log(`偵測到 ID: ${id}`); // 追蹤點 4
+
+    let url = '';
+    let method = 'POST';
+
+    if (target.classList.contains('approve-btn')) {
+      url = `/api/events/${id}/approve`;
+    } else if (target.classList.contains('unpublish-btn')) {
+      url = `/api/events/${id}/unpublish`;
+    } else if (target.classList.contains('republish-btn')) {
+      url = `/api/events/${id}/republish`;
+    } else if (target.classList.contains('recommend-btn')) {
+      url = `/api/events/${id}/toggle-recommend`;
+    } else if (target.classList.contains('reject-btn')) {
+      if (confirm('確定要永久刪除這個活動嗎？這個操作無法復原。')) {
+        url = `/api/events/${id}/reject`;
       }
-    } catch (err) {
-      console.error('請求發送失敗:', err);
-      alert('無法連接到伺-服器，請檢查你的網路連線。');
     }
-  }
-});
+    
+    console.log(`準備發送請求到 URL: ${url}`); // 追蹤點 5
+
+    if (url) {
+      try {
+        console.log('正在執行 fetch...'); // 追蹤點 6
+        const response = await fetch(url, { method: method });
+        console.log('Fetch 完成，收到回應:', response); // 追蹤點 7
+        console.log(`回應狀態 (response.ok): ${response.ok}, 狀態碼 (status): ${response.status}`); // 追蹤點 8
+
+        if (response.ok) {
+          console.log('操作成功，準備重新整理頁面...'); // 追蹤點 9
+          window.location.reload();
+        } else {
+          console.log('操作失敗，準備顯示錯誤訊息...'); // 追蹤點 10
+          const errorData = await response.json();
+          console.log('收到的錯誤資料:', errorData); // 追蹤點 11
+          alert(`操作失敗： ${errorData.message || '伺服器發生未知錯誤'}`);
+        }
+      } catch (err) {
+        console.error('請求發送失敗 (catch block):', err); // 追蹤點 12
+        alert('無法連接到伺服器，請檢查你的網路連線。');
+      }
+    } else {
+        console.log('URL 為空，不發送請求。'); // 追蹤點 13
+    }
+  });
 </script>
 </body>
 </html>
