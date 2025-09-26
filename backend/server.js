@@ -1,4 +1,4 @@
-// backend/server.js (修正版)
+// backend/server.js (最終乾淨版)
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -21,44 +21,23 @@ dayjs.extend(isSameOrBefore);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 👇👇👇 【修正點 1】告訴 Express 它正運行在一個代理伺服器 (Render) 後面 👇👇👇
-// 這對於 session 和 cookie 的安全設定至關重要
+// 【修正點 1】告訴 Express 它正運行在一個代理伺服器 (Render) 後面
 app.set('trust proxy', 1);
 
 // --- 3. MongoDB 連線 ---
 const mongoURI = process.env.MONGODB_URI;
-if (!mongoURI) {
-  console.error("❌ 致命錯誤：找不到 MONGODB_URI 環境變數。");
-  process.exit(1);
-}
 mongoose.connect(mongoURI)
   .then(() => console.log("✅ MongoDB 連線成功"))
-  .catch(err => {
-    console.error("❌ MongoDB 連線失敗:", err.message);
-    process.exit(1);
-  });
+  .catch(err => console.error("❌ MongoDB 連線失敗:", err.message));
 
-// --- 4. Mongoose Schema & Model ---
+// --- 4. Mongoose Schema & Model (此處省略以保持簡潔) ---
 const eventSchema = new mongoose.Schema({
-  title: String,
-  category: String,
-  location: String,
-  organizer: String,
-  startDate: Date,
-  endDate: Date,
-  linkUrl: String,
-  imageUrl: String,
-  isFree: Boolean,
-  isRecommended: { type: Boolean, default: false },
-  address: String,
-  description: String,
-  likes: { type: Number, default: 0 },
+  title: String, category: String, location: String, organizer: String,
+  startDate: Date, endDate: Date, linkUrl: String, imageUrl: String,
+  isFree: Boolean, isRecommended: { type: Boolean, default: false },
+  address: String, description: String, likes: { type: Number, default: 0 },
   comments: [{ author: String, body: String, date: { type: Date, default: Date.now } }],
-  status: {
-    type: String,
-    enum: ['pending', 'approved', 'rejected', 'archived'],
-    default: 'pending'
-  },
+  status: { type: String, enum: ['pending', 'approved', 'rejected', 'archived'], default: 'pending' },
   source: String
 });
 const Event = mongoose.model("Event", eventSchema);
@@ -69,26 +48,25 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../frontend/public")));
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: 'auto', maxAge: 1000 * 60 * 60 * 24 } // 建議 secure: 'auto'
-}));
 
-// 👇👇👇 【修正點 2】更新 Session 的 Cookie 設定 👇👇👇
+// 【修正點 2】使用唯一的、正確的 Session 設定
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { 
-    secure: 'auto', // 在 https 上自動設為 true
-    httpOnly: true, // 防止客戶端 JS 存取 cookie
-    sameSite: 'lax', // 防止 CSRF 攻擊的關鍵設定，並確保 session 能在 POST 請求中被傳遞
-    maxAge: 1000 * 60 * 60 * 24 
+  cookie: {
+    secure: 'auto',
+    httpOnly: true,
+    sameSite: 'lax',
+    maxAge: 1000 * 60 * 60 * 24
   }
 }));
 
+// (可選) 全域監聽器，用於偵錯
+app.use((req, res, next) => {
+  console.log(`[監聽器] 收到請求: ${req.method} ${req.originalUrl}`);
+  next();
+});
 
 // --- 6. 路由 (Routes) ---
 // 權限檢查 Middleware (保鑣)
