@@ -21,6 +21,10 @@ dayjs.extend(isSameOrBefore);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// 👇👇👇 【修正點 1】告訴 Express 它正運行在一個代理伺服器 (Render) 後面 👇👇👇
+// 這對於 session 和 cookie 的安全設定至關重要
+app.set('trust proxy', 1);
+
 // --- 3. MongoDB 連線 ---
 const mongoURI = process.env.MONGODB_URI;
 if (!mongoURI) {
@@ -72,12 +76,19 @@ app.use(session({
   cookie: { secure: 'auto', maxAge: 1000 * 60 * 60 * 24 } // 建議 secure: 'auto'
 }));
 
-// 👇👇👇 【關鍵新增】終極監聽器 👇👇👇
-// 這個中介軟體必須放在所有路由的最前面
-app.use((req, res, next) => {
-  console.log(`[全域監聽器] 收到請求: ${req.method} ${req.originalUrl}`);
-  next(); // 繼續執行後面的路由
-});
+// 👇👇👇 【修正點 2】更新 Session 的 Cookie 設定 👇👇👇
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { 
+    secure: 'auto', // 在 https 上自動設為 true
+    httpOnly: true, // 防止客戶端 JS 存取 cookie
+    sameSite: 'lax', // 防止 CSRF 攻擊的關鍵設定，並確保 session 能在 POST 請求中被傳遞
+    maxAge: 1000 * 60 * 60 * 24 
+  }
+}));
+
 
 // --- 6. 路由 (Routes) ---
 // 權限檢查 Middleware (保鑣)
