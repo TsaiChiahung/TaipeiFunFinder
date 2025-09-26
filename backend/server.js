@@ -72,8 +72,14 @@ app.use(session({
   cookie: { secure: 'auto', maxAge: 1000 * 60 * 60 * 24 } // 建議 secure: 'auto'
 }));
 
-// --- 6. 路由 (Routes) ---
+// 👇👇👇 【關鍵新增】終極監聽器 👇👇👇
+// 這個中介軟體必須放在所有路由的最前面
+app.use((req, res, next) => {
+  console.log(`[全域監聽器] 收到請求: ${req.method} ${req.originalUrl}`);
+  next(); // 繼續執行後面的路由
+});
 
+// --- 6. 路由 (Routes) ---
 // 權限檢查 Middleware (保鑣)
 const isAdmin = (req, res, next) => {
   if (req.session.isAdmin) {
