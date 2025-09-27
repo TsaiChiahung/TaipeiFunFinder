@@ -110,7 +110,7 @@ app.get("/", async (req, res) => {
     const tomorrow = dayjs().add(1, 'day').startOf('day').toDate();
     const todayEvents = await Event.find({ status: 'approved', startDate: { $gte: today, $lt: tomorrow }, _id: { $nin: recommendedIds } }).sort({ startDate: 1 });
     const futureEvents = await Event.find({ status: 'approved', startDate: { $gte: tomorrow }, _id: { $nin: recommendedIds } }).sort({ startDate: 1 }).limit(12);
-    const ongoingEvents = await Event.find({ status: 'approved', startDate: { $lte: today }, endDate: { $gte: today }, _id: { $nin: recommendedIds } }).sort({ startDate: 1 });
+    const ongoingEvents = await Event.find({ status: 'approved', startDate: { $lt: today }, endDate: { $gte: today }, _id: { $nin: recommendedIds } }).sort({ startDate: 1 });
     res.render("index", { recommendedEvents, todayEvents, futureEvents, ongoingEvents, tomorrowEvents: futureEvents.filter(e => dayjs(e.startDate).isSame(tomorrow, 'day')), weekendEvents: [] });
   } catch (err) { res.status(500).send("伺服器錯誤"); }
 });
