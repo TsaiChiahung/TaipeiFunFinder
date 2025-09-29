@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+ <head> 
+  <meta charset="UTF-8">
+  <title>台北悠化 | TaipeiFunFinder</title>
+<meta name="google-site-verification" content="7xu_sw20NRsCY3y4v-JOV8dC00wZBHjtm-APSgnYh74" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+</head> 
+
+<style>
+  /* Modal 基本樣式 */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-content {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+  }
+  .modal-close-btn {
+    float: right;
+    border: none;
+    background: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  .footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    color: #6c757d;
+  }
+  /* backend/views/index.ejs */
+  /* Section Title Style (Upgraded Version) */
+  .section-title {
+    text-align: center;
+    margin: 3rem 0 2rem;
+  }
+  .section-title h2 {
+    font-family: 'Noto Serif TC', serif;  /* 中文用 Noto Serif TC */
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+  .section-title h2 span {
+    display: block;
+    position: relative;
+    padding-bottom: 0.3rem;
+  }
+  /* 底線裝飾 */
+  .section-title h2 span::after {
+    content: "";
+    width: 60px;
+    height: 3px;
+    background: #3498db;
+    display: block;
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+  }
+  .section-title small {
+    font-family: 'Playfair Display', serif;  /* 英文用 Playfair Display */
+    font-size: 1rem;
+    color: #7f8c8d;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+</style>
+
+<body class="bg-light">
+  <!-- 導覽列 -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container text-center">
+    <a class="navbar-brand" href="/">Taipei Fun Finder 台北最新活動</a>
+  </div>
+</nav>
+
+  <!-- 搜尋欄位 -->
+  <div class="container my-4">
+    <form class="row g-2" method="GET" action="/search">
+      <div class="col-md-2">
+        <input type="text" name="category" class="form-control" placeholder="輸入類別">
+      </div>
+      <div class="col-md-2">
+        <input type="text" name="location" class="form-control" placeholder="輸入行政區">
+      </div>
+      <div class="col-md-2">
+        <input type="text" name="address" class="form-control" placeholder="輸入地點">
+      </div>
+      <div class="col-md-2">
+        <input type="date" name="date" class="form-control">
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">搜尋</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 活動分區 -->
+   <div class= "section-title">
+    <h2><span>✨ 精選推薦</span>
+    <small class="text-muted">Editor's Picks</small></h2>
+     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+    <% if (recommendedEvents && recommendedEvents.length > 0) { %>
+        <% recommendedEvents.forEach(event => { %>
+          <%- include("partials/eventCard", { event: event }) %>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <p class="text-muted">目前沒有特別推薦的活動。</p>
+    <% } %>
+  </div>
+
+  <div class= "section-title">
+    <h2><span>今天的活動</span>
+    <small class="text-muted">Today's Events</small></h2>
+    <% if (todayEvents.length === 0) { %>
+      <p class="text-muted">今天沒有活動。</p>
+    <% } else { %>
+      <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <% todayEvents.forEach(event => { %>
+          <%- include("partials/eventCard", { event: event }) %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+
+  <div class= "section-title">
+    <h2><span>明天的活動</span>
+    <small class="text-muted">Tomorrow's Events</small></h2>
+    <% if (tomorrowEvents.length === 0) { %>
+      <p class="text-muted">明天沒有活動。</p>
+    <% } else { %>
+      <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <% tomorrowEvents.forEach(event => { %>
+          <%- include("partials/eventCard", { event: event }) %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+
+  <div class= "section-title">
+    <h2><span>本週末的活動 </span>
+    <small class="text-muted">Weekend Events</small></h2>
+    <% if (weekendEvents.length === 0) { %>
+      <p class="text-muted">本週末沒有活動。</p>
+    <% } else { %>
+      <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <% weekendEvents.forEach(event => { %>
+          <%- include("partials/eventCard", { event: event }) %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+
+  <div class= "section-title">
+    <h2><span>未來活動</span>
+    <small class="text-muted">Future Events</small></h2>
+    <% if (futureEvents.length === 0) { %>
+      <p class="text-muted">目前沒有未來活動。</p>
+    <% } else { %>
+      <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <% futureEvents.forEach(event => { %>
+          <%- include("partials/eventCard", { event: event }) %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+
+  <div class= "section-title">
+    <h2><span>🏃 進行中的長期活動</span>
+    <small class="text-muted">Ongoing Events</small></h2>
+    <% if (ongoingEvents.length === 0) { %>
+      <p class="text-muted">目前沒有長期活動。</p>
+    <% } else { %>
+      <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <% ongoingEvents.forEach(event => { %>
+          <%- include("partials/eventCard", { event: event }) %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- 留言 Modal -->
+  <div id="comment-modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close-btn">✖</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+<li class="nav-item">
+  <a class="nav-link" href="/events">➡️點這裡看所有活動</a>
+</li>
+  <!-- Footer 維護-->
+<footer class="footer mt-5 py-4 bg-secondary text-white">
+  <div class="container text-center">
+    <div class="mb-2">
+  <span>本站由 <strong>台北悠化</strong> 維護 &copy; 2025. All rights reserved. | <a href="/disclaimer.html" class="text-white">網站維護聲明</a> | <a href="/story" class="text-white">我們的故事</a></span> </div>
+  </div>
+   <div>
+   <a class="nav-link text-white" href="/admin">管理者專區</a>
+</div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  
+  // 使用事件委派來處理所有按鈕點擊，效能更好
+  document.body.addEventListener('click', async (e) => {
+    
+    
+    // --- 按讚邏輯 ---
+    if (e.target.closest('.like-btn')) {
+      const btn = e.target.closest('.like-btn');
+      const id = btn.dataset.id;
+      // ✅ 修正 API 路徑為 /api/events/...，方法為 PUT
+      const res = await fetch(`/api/events/${id}/like`, { method: "PUT" });
+      const data = await res.json();
+      if (res.ok) {
+        btn.querySelector(".like-count").textContent = data.likes;
+      }
+    }
+
+    // --- 展開/收合留言區塊邏輯 ---
+    if (e.target.closest('.comment-toggle')) {
+      const btn = e.target.closest('.comment-toggle');
+      const box = document.getElementById(`comment-box-${btn.dataset.id}`);
+      if (box) box.classList.toggle("d-none");
+    }
+  });
+
+  // 使用事件委派來處理所有表單提交
+  document.body.addEventListener('submit', async (e) => {
+    if (e.target.matches('.comment-form')) {
+      e.preventDefault();
+      const form = e.target;
+      const id = form.dataset.id;
+      const textInput = form.querySelector("input[name='text']");
+      const text = textInput.value;
+
+      if (!text.trim()) return; // 防止送出空留言
+
+      // ✅ 修正 API 路徑為 /api/events/.../comments
+      const res = await fetch(`/api/events/${id}/comments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ body: text }) // 後端需要的是 body 欄位
+      });
+      const data = await res.json();
+      
+      
+      if (res.ok) {
+        const list = form.parentElement.querySelector(".comment-list");
+        list.innerHTML = ""; // 清空舊列表
+        data.comments.forEach(c => {
+          const li = document.createElement("li");
+          li.className = "list-group-item py-1";
+          // ✅ 後端回傳的是 author 和 body
+          li.textContent = `${c.author}: ${c.body}`; 
+          list.appendChild(li);
+        });
+        form.reset();
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
