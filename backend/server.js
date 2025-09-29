@@ -115,6 +115,47 @@ app.get("/", async (req, res) => {
   } catch (err) { res.status(500).send("伺服器錯誤"); }
 });
 app.get('/story', (req, res) => res.render('story'));
+// backend/server.js
+
+// ... 在 app.get('/story', ...) 之後，加入這個新路由 ...
+
+// ===== 所有活動頁面 (含分頁功能) =====
+app.get('/events', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1; // 獲取當前頁碼，預設為第 1 頁
+    const eventsPerPage = 12; // 設定每頁顯示 12 筆活動
+    const skip = (page - 1) * eventsPerPage;
+
+    // 建立基礎查詢，只找「已上架」且「尚未過期」的活動
+    const today = dayjs().startOf('day').toDate();
+    const query = { 
+      status: 'approved',
+      endDate: { $gte: today } // 我們只顯示尚未結束的活動
+    };
+
+    // 查詢當前頁面的活動
+    const events = await Event.find(query)
+      .sort({ startDate: 1 }) // 依照開始日期排序
+      .skip(skip) // 跳過前面頁面的活動
+      .limit(eventsPerPage); // 限制回傳的活動數量
+
+    // 計算總共有多少筆活動，用來計算總頁數
+    const totalEvents = await Event.countDocuments(query);
+    const totalPages = Math.ceil(totalEvents / eventsPerPage);
+
+    // 渲染 events.ejs 頁面，並傳入需要的資料
+    res.render('events', {
+      events: events,
+      currentPage: page,
+      totalPages: totalPages,
+      title: "所有活動" // 設定頁面標題
+    });
+
+  } catch (err) {
+    console.error("❌ 載入所有活動頁面失敗:", err);
+    res.status(500).send("伺服器錯誤");
+  }
+});
 app.get('/search', async (req, res) => {
   try {
     const { category, location, address, date } = req.query;
